@@ -19,8 +19,15 @@ class Editor extends Textarea
         $config = json_encode(array_merge($config, $this->options));
 
         $this->script = <<<EOT
-CKEDITOR.replace('{$this->id}', $config);
+ClassicEditor
+  .create( document.getElementById( '{$this->id}' ), {
+    licenseKey: '',
+  } )
+  .catch( error => {
+    console.error( error );
+  } );
 EOT;
+
         return parent::render();
     }
 }
